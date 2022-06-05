@@ -1,5 +1,8 @@
 <?php
 
+if(file_exists("archive.zip")){ // удаляем старый архив если он существует
+    unlink('archive.zip'); 
+}
 
 $rootPath = realpath('images');
 
@@ -24,9 +27,16 @@ foreach ($files as $name => $file)
         $zip->addFile($filePath, $relativePath);
     }
 }
-
-
-$zip->addFile("index.php"); //Добавляем в архив файл index.php
+if(isset($_POST["company"])){
+    $zip->addFile("Company.html");
+}
+if(isset($_POST["private"])){
+    $zip->addFile("private.html");
+}
+if(isset($_POST["Empty"])){
+    $zip->addFile("Empty.html");
+}
+ //Добавляем в архив файл index.php
 $zip->addFile("styles/main.css"); //Добавляем в архив файл styles/style.css
 $zip->addFile("styles/styleLess.css"); //Добавляем в архив файл styles/style.css
 $zip->close(); //Завершаем работу с архивом
